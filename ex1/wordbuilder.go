@@ -1,17 +1,16 @@
 /**
  * wordbuilder.go -- Builds word frequency
  * from moby txt files
- * 
+ *
  *
  * @author Vasu Mahalingam <vasu.uky@gmail.com>
  *
  *
-*/
+ */
 
 package main
 
 import (
-	"fmt"
 	moby "./moby"
 	"log"
 	"path/filepath"
@@ -29,10 +28,14 @@ func main() {
 	log.Println("Parsing " + abspath)
 	err := wb.Parse(infile)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 	abspath, _ = filepath.Abs(outfile)
 	log.Println("Saving results to " + abspath)
-	wb.SaveToFile(outfile)
+	err = wb.SaveToFile(outfile)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 }

@@ -1,12 +1,11 @@
 /**
- * wordbuilder.go -- Builds word frequency
- * from moby txt files
- * 
+ * moby.go -- Builds word frequency
+ *
  *
  * @author Vasu Mahalingam <vasu.uky@gmail.com>
  *
  *
-*/
+ */
 
 package moby
 
@@ -33,20 +32,17 @@ func (this *WordBuilder) GetWordCount() map[string]int {
 func (this *WordBuilder) SaveToFile(filename string) error {
 	if len(this.WordCount) == 0 {
 		err := errors.New("Nothing to write, \"" + filename + "\"  not created")
-		log.Fatal(err)
 		return err
 	}
 
 	f, err := os.Create(filename)
 	if err != nil {
 		log.Fatal(err)
-		return err
 	}
 
 	defer func() error {
 		if err := f.Close(); err != nil {
 			log.Fatal(err)
-			return err
 		}
 		return nil
 	}()
@@ -66,13 +62,11 @@ func (this *WordBuilder) Parse(filename string) error {
 	f, err := os.Open(filename)
 	if err != nil {
 		log.Fatal(err)
-		return errors.New("File not found")
 	}
 
 	defer func() error {
 		if err = f.Close(); err != nil {
 			log.Fatal(err)
-			return err
 		}
 		return nil
 	}()
@@ -96,8 +90,7 @@ func (this *WordBuilder) Parse(filename string) error {
 	}
 
 	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-		return errors.New("Scanner read error")
+		return err
 	}
 
 	return nil

@@ -1,12 +1,12 @@
 /**
  * wordbuilder.go -- Builds word frequency
  * from moby txt files
- * 
+ *
  *
  * @author Vasu Mahalingam <vasu.uky@gmail.com>
  *
  *
-*/
+ */
 
 package main
 
@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	dir string = "files"
+	dir     string = "files"
 	outfile string = "result.txt"
 )
 
@@ -29,13 +29,11 @@ func main() {
 	files, err := ioutil.ReadDir(abspath)
 	if err != nil {
 		log.Fatal(err)
-		return
 	}
 	resc, errc := make(chan map[string]int), make(chan error)
 	for _, file := range files {
 		if file.IsDir() == true {
 			log.Fatal("Nested directory not allowed")
-			return
 		}
 		filename := abspath + string(filepath.Separator) + file.Name()
 		go func(filename string) {
@@ -66,10 +64,13 @@ func main() {
 		}
 	}
 
-	// Save the result  
+	// Save the result
 	wb := new(moby.WordBuilder)
 	wb.WordCount = result
 	abspath, _ = filepath.Abs(outfile)
 	log.Println("Saving results to " + abspath)
-	wb.SaveToFile(outfile)
+	err = wb.SaveToFile(outfile)
+	if err != nil {
+		return
+	}
 }
