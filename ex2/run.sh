@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NORMAL="\\033[0;39m"
-#RED="\\033[1;31m"
+RED="\\033[1;31m"
 BLUE="\\033[1;34m"
 
 IMAGE_NAME="docker-test2"
