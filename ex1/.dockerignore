@@ -1,0 +1,5 @@
+# DONOT COPY THESE FILES
+Dockerfile
+*.sh
+result.txt
+README*
